@@ -12,11 +12,12 @@ exports.get_article = (id, result) => {
         }
         else {
           if (res.length > 0) {
-            console.log("Article found!");
+            console.log("Article found " + res[0].Id );
               result(null, res[0]);
           }
           else {
               console.log("Article not found !");
+              result("Article not found", null);
           }
         }
     });

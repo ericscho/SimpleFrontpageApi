@@ -24,6 +24,7 @@ var appRouter = function(app) {
     articles.get_article(req.params.id, (err,data) => {
       console.log("ROUTE: Article ID " + req.params.id + " requested");
         if (err) {
+          console.log(err);
           if (err.kind === "not_found") {
             res.status(404).send({
               message: "Article not found with id ${id}"
@@ -32,7 +33,11 @@ var appRouter = function(app) {
           res.status(500).send({message: "An error occured while retrieving article"});
         }
         else {
-          res.send(data);
+          if (data != null)
+            res.send(data);
+          else {
+            res.send({message : "Article not found"});
+          }
         }
 
       });
