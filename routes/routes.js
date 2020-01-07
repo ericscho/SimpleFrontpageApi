@@ -39,8 +39,29 @@ var appRouter = function(app) {
             res.send({message : "Article not found"});
           }
         }
-
       });
+
+  });
+
+  app.get("/articles/", function(req, res) {
+    articles.get_all_articles((err,data) => {
+    if (err) {
+      console.log(err);
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: "No articles were found"
+        });
+      }
+      res.status(500).send({message: "An error occured while retrieving article list"});
+    }
+    else {
+      if (data != null)
+        res.send(data);
+      else {
+        res.send({message : "Articles not found"});
+      }
+    }
+  });
 
   });
 
